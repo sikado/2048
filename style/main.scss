@@ -246,6 +246,9 @@ hr {
       }
 
       &.game-won, &.game-over {
+        background-image: url("img/120WIN.png");
+        background-position: top left;
+        background-repeat: no-repeat;
         display: block;
       }
     }
@@ -323,8 +326,22 @@ hr {
     text-align: center;
     font-weight: bold;
     z-index: 10;
+    overflow: hidden;
+    position: relative;
 
     font-size: 55px;
+    &:before{
+      content: "";
+	    position: absolute;
+    	width: 100%;
+    	height: 100%;
+      left: 0;
+    	z-index: -1;
+      background-repeat: no-repeat;
+      background-position: center;
+      @include animation(spin 1s linear infinite);
+
+    }
   }
 
   // Movement transition
@@ -373,7 +390,12 @@ hr {
       }
 
       // Set background
-      background: $mixed-background;
+      background-color: $mixed-background;
+      
+      &:before{
+        background-image: url('img/120#{$exponent}.png');
+      }
+
 
       // Add glow
       $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
@@ -413,6 +435,20 @@ hr {
     @include smaller($mobile-threshold) {
       font-size: 10px;
     }
+  }
+}
+
+@include keyframes(spin) {
+  0% {
+    @include transform(rotate(-10deg));
+  }
+  
+  50% {
+    @include transform(rotate(10deg));
+  }
+
+  100% {
+    @include transform(rotate(-10deg));
   }
 }
 
